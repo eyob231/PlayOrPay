@@ -1,9 +1,11 @@
 import { Text, View, StyleSheet,TextInput,ToastAndroid } from 'react-native';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useRouter } from 'expo-router';
 
 export default function Signup() {
+  const router = useRouter();
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +22,9 @@ export default function Signup() {
             setUsername('');
             setEmail('');
             setPassword('');
+           setTimeout(() => {
+            router.push('/auth/login');
+            }, 1000);
         } else {
             ToastAndroid.show('Error creating user', ToastAndroid.SHORT);
         }
@@ -47,7 +52,10 @@ export default function Signup() {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Text onPress={handleSignup}>Sign Up</Text>
+      <Text onPress={handleSignup} style={{ backgroundColor: 'blue', color: 'white', padding: 10, borderRadius: 5 }}>
+        Sign Up
+      </Text>
+      <Text onPress={() => router.push('/auth/login')}>Already have an account? Log in</Text>
     </View>
   );
 }

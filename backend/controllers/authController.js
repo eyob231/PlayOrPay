@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
     try {
         const user = await User.findOne({ email, password });
         if (user) {
-            res.json({ message: 'Login successful', user });
+            res.status(201).json({ message: 'Login successful', user });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
         }
